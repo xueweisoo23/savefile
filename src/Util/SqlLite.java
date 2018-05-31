@@ -48,7 +48,7 @@ public class SqlLite {
 	//鏌ヨ鏁版嵁搴撲腑鎵�鏈変俊鎭殑鏂规硶
 	public static ArrayList<Data1> query(){
 		ArrayList<Data1> al=new ArrayList<Data1>();
-		String sql= "select * from Data";
+		String sql= "select * from Data ORDER BY name;";
 		Connection conn=SqliteDao.getConnection();
 		Statement stat=null;
 		ResultSet rs=null;
@@ -101,18 +101,30 @@ public class SqlLite {
 
 	//鏌ラ噸鐨勬柟娉�
 	
-	public static void Check() {
+	public static ArrayList<Data1> Check() {
+		ArrayList<Data1> al=new ArrayList<Data1>();
+		String sql= "SELECT * FROM Data tempTable WHERE (tempTable.time) IN (SELECT time FROM Data GROUP BY time HAVING count(*) >= 2 ORDER BY name) AND (tempTable.size) IN (SELECT size FROM Data GROUP BY size HAVING count(*) >= 2 ORDER BY size) OR (tempTable.name) IN (SELECT name FROM Data GROUP BY name HAVING count(*) >= 2 ORDER BY name);";
+		Connection connection=SqliteDao.getConnection();
 		Statement stat=null;
 		ResultSet rs=null;
-		Connection connection = SqliteDao.getConnection();
-		String sql="select * from Data where (Name,Type,Size,Psth,Time)in(select Name,Type,Size,Psth,Time from user group by Name,Type,Size,Psth,Time where having count(Name,Type,Size,Psth,Time)>1);";
 		try {
 			stat=connection.createStatement();
 			rs=stat.executeQuery(sql);
+
+			while(rs.next()){
+				String name=rs.getString("Name");
+				String type=rs.getString("Type");
+				int size=rs.getInt("Size");
+				String path=rs.getString("Path");
+				String time=rs.getString("Time");
+
+				Data1 d=new Data1(name, type, size, path, time);
+				al.add(d);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	
+	return al;
 	
 	}
 }
