@@ -28,6 +28,8 @@ import Util.SqlLite;
 
 public class View implements ActionListener {
 
+	public JTextArea path = new JTextArea("			");
+
 	
 	public View(){
 		JFrame jf = new JFrame("小程序");         
@@ -45,7 +47,7 @@ public class View implements ActionListener {
 //        path1 = FileChooser.Print(file, str);
         JButton btn3 = new JButton("OPEN");
         
-        JTextArea path = new JTextArea("			");
+
         
         JButton btn = new JButton("确认");
         JButton btn1 = new JButton("显示所有文件信息");
