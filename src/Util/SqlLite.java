@@ -13,25 +13,25 @@ import Model.Data1;
 public class SqlLite {
 	private String sql;
 
-	//创建表格
+	//鍒涘缓琛ㄦ牸
 	public static void createTable() {
 		Connection connection = SqliteDao.getConnection();
 		java.sql.Statement statement;
 		
 		try {
 			statement = connection.createStatement();
-			//删除原来的表
+			//鍒犻櫎鍘熸潵鐨勮〃
 			statement.executeUpdate("drop table if exists Data;");
-			//创建表格
+			//鍒涘缓琛ㄦ牸
 			String sql = "create table Data (name varchar(255),type varchar(255),size int(20), path varchar(255),time varchar(255));";
 			statement.executeUpdate(sql);
 
-			System.out.println("创建了名为Data的表");
+			System.out.println("鍒涘缓浜嗗悕涓篋ata鐨勮〃");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	//插入数据
+	//鎻掑叆鏁版嵁
 	public static void insertData(Data1 d) {
 		Connection connection = SqliteDao.getConnection();
 		
@@ -39,13 +39,13 @@ public class SqlLite {
 			String sql2 = "insert into Data values(\"" + d.getName() +"\",\"" + d.getType() + "\"," + d.getSize() + ",\"" + d.getPath() + "\",\"" + d.getTime() +"\");";
 			Statement statement1 = connection.createStatement();
 			statement1.executeUpdate(sql2);
-			System.out.println("插入数据成功");
+			System.out.println("鎻掑叆鏁版嵁鎴愬姛");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	//查询数据库中所有信息的方法
+	//鏌ヨ鏁版嵁搴撲腑鎵�鏈変俊鎭殑鏂规硶
 	public static ArrayList<Data1> query(){
 		ArrayList<Data1> al=new ArrayList<Data1>();
 		String sql= "select * from Data";
@@ -72,7 +72,7 @@ public class SqlLite {
 		return al;
 	}
 
-//	//查询数据库中单条信息的方法
+//	//鏌ヨ鏁版嵁搴撲腑鍗曟潯淇℃伅鐨勬柟娉�
 //	public static ArrayList<Data1> singleQuery(String name){
 //		ArrayList<Data1> al=new ArrayList<Data1>();
 //		String sql= "select * from Data where name = \"" + name +"\";";
@@ -99,7 +99,7 @@ public class SqlLite {
 //		return al;
 //	}
 
-	//查重的方法
+	//鏌ラ噸鐨勬柟娉�
 	
 	public static void Check() {
 		Statement stat=null;
