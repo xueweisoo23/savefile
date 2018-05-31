@@ -72,32 +72,32 @@ public class SqlLite {
 		return al;
 	}
 
-//	//鏌ヨ鏁版嵁搴撲腑鍗曟潯淇℃伅鐨勬柟娉�
-//	public static ArrayList<Data1> singleQuery(String name){
-//		ArrayList<Data1> al=new ArrayList<Data1>();
-//		String sql= "select * from Data where name = \"" + name +"\";";
-//		Connection conn=SqliteDao.getConnection();
-//		Statement stat=null;
-//		ResultSet rs=null;
-//
-//		try {
-//			stat=conn.createStatement();
-//			rs=stat.executeQuery(sql);
-//			while(rs.next()){
-//				String name=rs.getString("Name");
-//				String type=rs.getString("Type");
-//				int size=rs.getInt("Size");
-//				String path=rs.getString("Path");
-//				String time=rs.getString("Time");
-//
-//				Data1 d=new Data1(name, type, size, path, time);
-//				al.add(d);
-//			}
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//		}
-//		return al;
-//	}
+	//鏌ヨ鏁版嵁搴撲腑鍗曟潯淇℃伅鐨勬柟娉�
+	public static ArrayList<Data1> singleQuery(String nameStr){
+		ArrayList<Data1> al=new ArrayList<Data1>();
+		String sql= "select * from Data where name = \"" + nameStr +"\";";
+		Connection conn=SqliteDao.getConnection();
+		Statement stat=null;
+		ResultSet rs=null;
+
+		try {
+			stat=conn.createStatement();
+			rs=stat.executeQuery(sql);
+			while(rs.next()){
+				String name=rs.getString("Name");
+				String type=rs.getString("Type");
+				int size=rs.getInt("Size");
+				String path=rs.getString("Path");
+				String time=rs.getString("Time");
+
+				Data1 d=new Data1(name, type, size, path, time);
+				al.add(d);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return al;
+	}
 
 	//鏌ラ噸鐨勬柟娉�
 	
