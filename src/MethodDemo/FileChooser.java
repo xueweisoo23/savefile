@@ -37,7 +37,7 @@ public class FileChooser extends JFrame implements ActionListener{
         // TODO Auto-generated method stub  
         JFileChooser jfc=new JFileChooser();  
         jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES );  
-        jfc.showDialog(new JLabel(), "选择");  
+        jfc.showDialog(new JLabel(), "閫夋嫨");  
         File file=jfc.getSelectedFile();  
         printFile(file,0);
           
@@ -45,17 +45,17 @@ public class FileChooser extends JFrame implements ActionListener{
   
     
     public static void printFile(File file,int l){
-        String str = new String();  //生成补充空格
+        String str = new String();  //鐢熸垚琛ュ厖绌烘牸
         for(int i=0;i<l;i++){
             str +=" " ;
         }
-        //先输出自己后输出子目录或文件
+        //鍏堣緭鍑鸿嚜宸卞悗杈撳嚭瀛愮洰褰曟垨鏂囦欢
         formatPrint(file,str);
         format(file, Model);
         
-        if(file.isDirectory()){  //判断是否为目录
-            File[] files = file.listFiles();  //获取目录下文件列表
-            for(File f:files){//递归输出文件
+        if(file.isDirectory()){  //鍒ゆ柇鏄惁涓虹洰褰�
+            File[] files = file.listFiles();  //鑾峰彇鐩綍涓嬫枃浠跺垪琛�
+            for(File f:files){//閫掑綊杈撳嚭鏂囦欢
                 printFile(f,l+3);
             }
              
@@ -68,19 +68,19 @@ public class FileChooser extends JFrame implements ActionListener{
     
     
     public static void formatPrint(File file,String str){
-        //先输出文件
+        //鍏堣緭鍑烘枃浠�
         String[] names = file.getName().split("[.]");
-        long time = file.lastModified();//获取文件修改时间
+        long time = file.lastModified();//鑾峰彇鏂囦欢淇敼鏃堕棿
         String ctime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
         
-        System.out.println("名称： "+str+file.getName()  
-                + "       类型："+names[names.length-1]+"文件"
-                + "       "+"  大小： "+file.length()+"  路径： "+file.getPath()+"  最后修改时间："+ctime);
+        System.out.println("鍚嶇О锛� "+str+file.getName()  
+                + "       绫诲瀷锛�"+names[names.length-1]+"鏂囦欢"
+                + "       "+"  澶у皬锛� "+file.length()+"  璺緞锛� "+file.getPath()+"  鏈�鍚庝慨鏀规椂闂达細"+ctime);
     }
     
     public static void format(File file,Data1 d){
     	String[] names = file.getName().split("[.]");
-        long time = file.lastModified();//获取文件修改时间
+        long time = file.lastModified();//鑾峰彇鏂囦欢淇敼鏃堕棿
         String ctime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(new Date(time));
         String s1 = file.getName();
         String s2 = names[names.length-1];

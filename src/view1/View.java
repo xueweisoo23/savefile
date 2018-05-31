@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.event.TableModelListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import Listener.Listener;
@@ -29,10 +30,17 @@ import Util.SqlLite;
 public class View implements ActionListener {
 
 	public JTextArea path = new JTextArea("			");
-
+	private static DefaultTableModel model;
+	private JTable table;
+	public static DefaultTableModel getModel() {
+		return model;
+	}
+	public static void main(String[] args) {
+		 new View();
+	}
 	
 	public View(){
-		JFrame jf = new JFrame("小程序");         
+		JFrame jf = new JFrame("灏忕▼搴�");         
         jf.setSize(470, 500);                       
         jf.setLocationRelativeTo(null);            
         jf.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); 
@@ -41,7 +49,7 @@ public class View implements ActionListener {
         JPanel panel = new JPanel();                
 
         
-        JLabel emptyLable1 = new JLabel("选择要查看所有文件的路径：");
+        JLabel emptyLable1 = new JLabel("閫夋嫨瑕佹煡鐪嬫墍鏈夋枃浠剁殑璺緞锛�");
         JTextArea path1 = new JTextArea("		");
         
 //        path1 = FileChooser.Print(file, str);
@@ -49,9 +57,9 @@ public class View implements ActionListener {
         
 
         
-        JButton btn = new JButton("确认");
-        JButton btn1 = new JButton("显示所有文件信息");
-        JButton btn2 = new JButton("显示重复文件信息");
+        JButton btn = new JButton("纭");
+        JButton btn1 = new JButton("鏄剧ず鎵�鏈夋枃浠朵俊鎭�");
+        JButton btn2 = new JButton("鏄剧ず閲嶅鏂囦欢淇℃伅");
         panel.add(emptyLable1);
         panel.add(path1);
         panel.add(btn3);
@@ -69,16 +77,21 @@ public class View implements ActionListener {
         panel.add(btn2);
         
         
-        Model model = new Model();
-        Panel parent = new Panel();
-        JTable table = new JTable();
-        table.setModel(model);// 为table 分配model
-        JScrollPane jPane = new JScrollPane(table);// 将table放进滚动条 放进滚动条后可显示列名
-        // getContentPane()得到JFrame最底层的JPanel 默认拥有一个不可直接向JFrame添加 需向JPanel添加
-        panel.add(jPane);
-        table.setVisible(true);
+       
+//        JTable table = new JTable();
+//        table.setModel(model);// 涓簍able 鍒嗛厤model
+//        JScrollPane jPane = new JScrollPane(table);// 灏唗able鏀捐繘婊氬姩鏉� 鏀捐繘婊氬姩鏉″悗鍙樉绀哄垪鍚�
+//        // getContentPane()寰楀埌JFrame鏈�搴曞眰鐨凧Panel 榛樿鎷ユ湁涓�涓笉鍙洿鎺ュ悜JFrame娣诲姞 闇�鍚慗Panel娣诲姞
+//        panel.add(jPane);
+//        table.setVisible(true);
         
-        
+        String[] s = {"鍚嶇О","绫诲瀷","澶у皬","璺緞","鍒涘缓鏃堕棿"};// 瀹氫箟琛ㄦ牸鍒楀悕鏁扮粍
+
+        // 鍒涘缓鎸囧畾鍒楀悕鍜屾暟鎹殑琛ㄦ牸
+        model = new DefaultTableModel(s, 0);
+		setTable(new JTable(model));
+		JScrollPane pane = new JScrollPane(getTable());
+		panel.add(pane);
         
         
         
@@ -87,76 +100,16 @@ public class View implements ActionListener {
         jf.setVisible(true);
         }
 	
-	public class Model implements TableModel {
-	     List<Data1> List;
+	
+		public JTable getTable(){
+			return table;
+		}
+		public void setTable(JTable table){
+			this.table = table;
 
-	     Object[][] p = { { "1", "11", 1,"1","1"}, { "1", "11", 1,"1","1"} }; // 表格数据
-	     String n[] = {"名称","类型","大小","路径","创建时间"}; // 属性名
+		}
 	 
-	     @Override
-	     public Class<Object> getColumnClass(int columnIndex) {
-	         return Object.class;
-	     }
 	 
-	     
-//			 为表格传入列数
-	
-	     public int getColumnCount() {
-	 
-	         return n.length;
-	     }
-	 
-	   
-//			为表格传入属性名
-	
-	     public String getColumnName(int columnIndex) {
-	         return n[columnIndex];
-	     }
-	 
-	    
-//			 为表格传入行数
-	
-	     public int getRowCount() {
-	         return p.length;
-	     }
-	     
-//	 		将数组中的数据传入表格
-	
-	     @Override
-	     public Object getValueAt(int rowIndex, int columnIndex) {
-	 
-	        return p[rowIndex][columnIndex];
-	     } 
-	    
-//			设置表格是否可编辑
-	
-	     public boolean isCellEditable(int rowIndex, int columnIndex) {
-	         return true;
-	     }
-	 
-	    
-//	  		   每当数据模型发生更改时，就将一个侦听器添加到被通知的列表中。
-	
-	     public void addTableModelListener(TableModelListener l) {
-	 
-	     }
-	 
-	   
-//	  		     每当数据模型发生更改时，就从被通知的列表中移除一个侦听器。
-	
-	     public void removeTableModelListener(TableModelListener l) {
-	 
-	     }
-	 
-	
-
-	    
-	     public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-	         p[rowIndex][columnIndex] = aValue;
-	 
-	     }
-	 
-	 }
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

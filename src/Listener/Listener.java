@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import MethodDemo.FileChooser;
+import Model.Data1;
 import Util.SqlLite;
 import Util.SqliteDao;
 import view1.View;
@@ -35,6 +36,7 @@ public class Listener implements ActionListener {
 	        File file=jfc.getSelectedFile();
 			SqlLite.createTable();
 	        FileChooser.printFile(file, 0);
+	        refresh();
 	        
 		}else if(str.equals("纭")){
 
@@ -44,10 +46,25 @@ public class Listener implements ActionListener {
 			
 		}else if(str.equals("鏄剧ず鏂囦欢淇℃伅")){
 			SqlLite.query();
+			refresh();
 			
 		}else if(str.equals("鏄剧ず閲嶅鏂囦欢淇℃伅")){
 			SqlLite.Check();
+			refresh();
 		}
 	}
 	
+	
+	private void refresh(){
+		//先清空前面的数据
+		View.getModel().setRowCount(0);
+		
+		ArrayList<Data1> al=SqlLite.query();
+		for(int i=0;i<al.size();i++){
+			Data1 d=al.get(i);
+			//循环一次生成一行数据
+			Object[] rowData={d.getName(),d.getType(),d.getSize(),d.getPath(),d.getTime()};
+			View.getModel().addRow(rowData);//放到表格中
+		}
+	}
 }
